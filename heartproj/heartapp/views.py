@@ -2,6 +2,10 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import messages
+<<<<<<< HEAD
+=======
+
+>>>>>>> fc13a816d190ddfdfd126dd66cb1ec2d573f6954
 
 # Create your views here.
 def homepage1(request):
