@@ -1,21 +1,30 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
+from django.contrib import messages
 
 # Create your views here.
+def homepage1(request):
+    return render(request, 'homepage1.html')
 
+def homepage2(request):
+    return render(request, 'homepage2.html')
+
+def predict(request):
+    return render(request, 'predict.html')
 def loginn(request):
     if request.method=='POST':
         username=request.POST.get('username')
         pass1=request.POST.get('pass')
         user=authenticate(request,username=username,password=pass1)
         if user is not None:
-            return HttpResponse ("Username or Password is correct!!!")
+            messages.info(request,"you logged in ")
+            #return redirect('sup')
             #login(request,user)
             #return redirect('sin')
         else:
-            return HttpResponse ("Username or Password is incorrect!!!")
+            messages.error(request,'username or password not correct')
+            return redirect('lin')
 
     return render(request,'login.html')
 
@@ -25,9 +34,17 @@ def signup(request):
         email=request.POST.get('email')
         pass1=request.POST.get('password1')
         pass2=request.POST.get('password2')
+        if User.objects.filter(username=uname).exists():
+            messages.info(request, "username taken")
+            return redirect('sup')
+        elif User.objects.filter(email=email).exists():
+            messages.info(request, "email taken")
+            return redirect('sup')
+        
 
         if pass1!=pass2:
-            return HttpResponse("Your password and confrom password are not Same!!")
+            messages.info(request, "password mismatch")
+            return redirect('sup')
         else:
 
             my_user=User.objects.create_user(uname,email,pass1)
