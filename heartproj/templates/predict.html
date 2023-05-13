@@ -41,96 +41,112 @@
           </div>
         </div>
       </nav>
+
+      {% if prediction == 0 %}
+          <h1 style="text-align:center">Negative result</h1>
+        {% elif greeting == 1 %}
+        <h1 style="text-align:center">positive result</h1>
+        {% endif %} 
       
       <!-- input data to predict-->
       <div class = "container-sm">
-        <form>
+        <form method="POST">{% csrf_token %}
             <div class="row mb-3">
               <label for="input" class="col-sm-2 col-form-label">Age</label>
               <div class="col">
-                <input type="number" class="form-control" >
+                <input type="number" class="form-control" name="age" min="0" max="100">
               </div>
             </div>
-            <fieldset class="row mb-3">
+            {% comment %} <fieldset class="row mb-3">
               <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                  <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="M" checked>
                   <label class="form-check-label" for="gridRadios1">
                     Male
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                  <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="F">
                   <label class="form-check-label" for="gridRadios2">
                     Female
                   </label>
              </div>
-            </fieldset>
+            </fieldset> {% endcomment %}
+            <div class="row mb-3" >
+              <label for="input" class="col-sm-2 col-form-label">GENDER</label>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="SEX(1-male,0-female)" aria-label="sex(0-female,1-male)" min="0" max="1" name="gender">
+              </div>
+            </div>
+
+
             <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">CP</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="Chest pain type(0,1,2,3)" aria-label="Chest pain type(0,1,2,3)" min="0" max="3">
+                  <input type="number" class="form-control" placeholder="Chest pain type(0,1,2,3)" aria-label="Chest pain type(0,1,2,3)" min="0" max="3" name="cp">
                 </div>
               </div>
+
+
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">trestbps</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="resting blood pressure (in mm Hg)" aria-label="resting blood pressure (in mm Hg)">
+                  <input type="number" class="form-control" placeholder="resting blood pressure (in mm Hg)" aria-label="resting blood pressure (in mm Hg)" name="trestbps">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">cholestrol</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="serum cholestoral in mg/dl" aria-label="serum cholestoral in mg/dl">
+                  <input type="number" class="form-control" placeholder="serum cholestoral in mg/dl" aria-label="serum cholestoral in mg/dl" name="cholestrol">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">fbs</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="fasting blood sugar(0,1)" aria-label="fasting blood sugar(0,1)" min="0" max="1">
+                  <input type="number" class="form-control" placeholder="fasting blood sugar(0,1)" aria-label="fasting blood sugar(0,1)" name="fbs" min="0" max="1">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">restecg</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="resting electrocardiographic results(0,1,2) " aria-label="resting electrocardiographic results(0,1,2) " min="0" max="2">
+                  <input type="number" class="form-control" placeholder="resting electrocardiographic results(0,1,2) " aria-label="resting electrocardiographic results(0,1,2) " name="restecg" min="0" max="2">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">thalach</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="maximum heart rate achieved" aria-label="maximum heart rate achieved">
+                  <input type="number" class="form-control" placeholder="maximum heart rate achieved" aria-label="maximum heart rate achieved" name="thalach">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">exang</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="exercise induced angina (1 = yes; 0 = no)" aria-label="exercise induced angina (1 = yes; 0 = no)" min="0" max="1">
+                  <input type="number" class="form-control" placeholder="exercise induced angina (1 = yes; 0 = no)" aria-label="exercise induced angina (1 = yes; 0 = no)" name="exang" min="0" max="1">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">oldpeak</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder=" ST depression induced by exercise" aria-label=" ST depression induced by exercise">
+                  <input type="number" class="form-control" placeholder=" ST depression induced by exercise" aria-label=" ST depression induced by exercise" name="oldpeak">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">slope</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="Peak exercise ST segment" aria-label="Peak exercise ST segment">
+                  <input type="number" class="form-control" placeholder="Peak exercise ST segment" aria-label="Peak exercise ST segment" name="slope">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">ca</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="number of major vessels (0-3) colored by flourosopy" aria-label="number of major vessels (0-3) colored by flourosopy" min="0" max="3">
+                  <input type="number" class="form-control" placeholder="number of major vessels (0-3) colored by flourosopy" aria-label="number of major vessels (0-3) colored by flourosopy" name="ca" min="0" max="3">
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="input" class="col-sm-2 col-form-label">thal</label>
                 <div class="col">
-                  <input type="number" class="form-control" placeholder="thalium stress result(0,1,2,3)" aria-label="thalium stress result(0,1,2,3)" min="0" max="3">
+                  <input type="number" class="form-control" placeholder="thalium stress result(0,1,2,3)" aria-label="thalium stress result(0,1,2,3)" name="thal" min="0" max="3">
                 </div>
               </div>    
             <div>
